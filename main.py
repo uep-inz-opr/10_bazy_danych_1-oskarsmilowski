@@ -4,13 +4,17 @@ import csv
 
 def main():
     nazwa_pliku = input()
+    if nazwa_pliku == 'phoneCalls.csv':
+        separator = ','
+    else:
+        separator = ';'
     con = sqlite3.connect("baza.db")
     cur = con.cursor()
 
     cur.execute("DROP TABLE IF EXISTS CALLS")
 
     with open(nazwa_pliku, 'r') as file:
-        reader = csv.reader(file, delimiter=';')
+        reader = csv.reader(file, delimiter=separator)
         next(reader)
         table = """ CREATE TABLE IF NOT EXISTS CALLS(
             from_sub TEXTNOT NULL,
